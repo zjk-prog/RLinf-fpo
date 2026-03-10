@@ -510,6 +510,7 @@ def compute_fpo_actor_loss(
     # log_ratio = old_cfm_loss - cfm_loss
     # ---------------------------------------------------------
     log_ratio = old_cfm_losses - cfm_losses
+    log_ratio = torch.clamp(log_ratio, min=-3, max=3)
     log_ratio = log_ratio.mean(dim=1)  # Average over num_train_samples dimension
     
     if clip_log_ratio_min is not None:
@@ -525,6 +526,9 @@ def compute_fpo_actor_loss(
     clipped_ratio = torch.clamp(ratio, 1.0 - clip_ratio_low, 1.0 + clip_ratio_high)
     policy_loss1 = -advantages * ratio
     policy_loss2 = -advantages * clipped_ratio
+    # print(f"[*******************************************]")
+    # print(f"advantages shape: {advantages.shape}, ratio shape: {ratio.shape}, policy_loss1 shape: {policy_loss1.shape}")
+    # print(f"[*******************************************]")
 
     clip_mask = policy_loss1.detach() < policy_loss2.detach()
 

@@ -923,6 +923,8 @@ class FSDPActor(FSDPModelManager, Worker):
         )
 
         self.model.train()
+        if hasattr(self.model, "gradient_checkpointing_disable"):
+            self.model.gradient_checkpointing_disable()
         assert (
             self.cfg.actor.global_batch_size
             % (self.cfg.actor.micro_batch_size * self._world_size)

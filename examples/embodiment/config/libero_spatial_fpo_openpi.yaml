@@ -15,7 +15,7 @@ hydra:
 cluster:
   num_nodes: 1
   component_placement:
-    actor,env,rollout: 0-3
+    actor,env,rollout: all
 
 runner:
   task_type: embodied
@@ -41,7 +41,7 @@ algorithm:
   group_size: 1
   reward_coef: 1.0
 
-  rollout_epoch: 2
+  rollout_epoch: 4
   eval_rollout_epoch: 1 # set eval_rollout_epoch > 0 when enable runner.only_eval or runner.val_check_interval > 0
 
   reward_type: chunk_level
@@ -88,7 +88,7 @@ env:
 
   # Override the default values in env/libero_spatial
   train:
-    total_num_envs: 32
+    total_num_envs: 16
     max_episode_steps: 240 # max episode steps for truncation
     max_steps_per_rollout_epoch: 240
   eval:
@@ -118,7 +118,7 @@ rollout:
 actor:
   group_name: "ActorGroup"
   training_backend: "fsdp"
-  micro_batch_size: 16
+  micro_batch_size: 32
   global_batch_size: 256 # maximum : global batch size = micro batch size * actor num_processes.
   seed: 42
   enable_offload: True
@@ -132,7 +132,7 @@ actor:
     openpi:
       detach_critic_input: True
       use_fpo: True
-      fpo_num_train_samples: 2
+      fpo_num_train_samples: 5
       noise_method: "fpo"
 
   optim:
