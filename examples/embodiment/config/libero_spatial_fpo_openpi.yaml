@@ -119,7 +119,7 @@ actor:
   group_name: "ActorGroup"
   training_backend: "fsdp"
   micro_batch_size: 32
-  global_batch_size: 256 # maximum : global batch size = micro batch size * actor num_processes.
+  global_batch_size: 1024 # maximum : global batch size = micro batch size * actor num_processes.
   seed: 42
   enable_offload: False
 
@@ -132,11 +132,11 @@ actor:
     openpi:
       detach_critic_input: True
       use_fpo: True
-      fpo_num_train_samples: 3
+      fpo_num_train_samples: 2
       noise_method: "fpo"
 
   optim:
-    lr: 1.0e-6
+    lr: 2.0e-6
     value_lr: 1.0e-4
     adam_beta1: 0.9
     adam_beta2: 0.95
