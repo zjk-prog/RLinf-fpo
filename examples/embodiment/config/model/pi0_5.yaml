@@ -16,19 +16,19 @@ lora_rank: 32
 # Training settings
 use_proprio: True
 num_steps: 5
-add_value_head: False
+add_value_head: True
 
 # openpi specific parameters
 openpi:
-  config_name: "pi05_libero"
+  config_name: "pi05_gsenv"
   num_images_in_input: 2
   noise_level: 0.5
-  action_chunk: ${actor.model.num_action_chunks}
-  num_steps: ${actor.model.num_steps}
   train_expert_only: True
-  action_env_dim: ${actor.model.action_dim}
   noise_method: "flow_sde"
-  add_value_head: ${actor.model.add_value_head}
   value_after_vlm: False
   value_vlm_mode: "mean_token"
   detach_critic_input: null
+  action_chunk: 5
+  num_steps: 5
+  action_env_dim: 7
+  add_value_head: True

@@ -13,7 +13,7 @@ hydra:
 cluster:
   num_nodes: 1
   component_placement:
-    actor,env,rollout: 0-0
+    actor,env,rollout: 0-7
 
 runner:
   task_type: sft
@@ -29,7 +29,7 @@ runner:
   save_interval: 2000
 
 data:
-  train_data_paths: "/path/to/libero-data"
+  train_data_paths: "/data/datasets"
 
 algorithm:
   adv_type: gae
@@ -39,16 +39,16 @@ actor:
   training_backend: "fsdp"
   micro_batch_size: 4
   global_batch_size: 128
-  seed: 0
+  seed: 42
 
   # Override the default values in model/pi0
   model:
     precision: null
-    model_path: "/path/to/pi0-model"
+    model_path: "/workspace/RLinf/ManiSkill-GS/RLinf-Pi05-GSEnv-PutCubeOnPlate-V0-SFT"
     num_action_chunks: 4 # interface for the env
     add_value_head: True
     openpi:
-      config_name: "pi0_libero"
+      config_name: "pi05_gsenv"
       detach_critic_input: True
 
   optim:

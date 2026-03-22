@@ -24,7 +24,23 @@ from mani_skill.utils.structs.types import Array
 from mani_skill.utils.visualization.misc import put_info_on_image, tile_images
 from omegaconf import open_dict
 from omegaconf.omegaconf import OmegaConf
+# --- 强制加载环境注册代码 ---
+import sys
+import os
 
+# 1. 将你的项目目录添加到路径中，确保能搜到 mani_skill_gs
+ms_gs_path = "/workspace/RLinf/ManiSkill-GS"
+if ms_gs_path not in sys.path:
+    sys.path.append(ms_gs_path)
+
+# 2. 强行导入你的环境定义文件，触发 @register_env
+try:
+    import mani_skill_gs.env_simulation.ms_env
+    print(f"[RLinf DEBUG] Successfully imported ms_env and registered tasks.")
+except Exception as e:
+    # 如果这里报错，说明是依赖项（如 urdfpy）没装好
+    print(f"[RLinf DEBUG] CRITICAL: Failed to load ms_env.py! Error: {e}")
+# -------------------------
 __all__ = ["ManiskillEnv"]
 
 

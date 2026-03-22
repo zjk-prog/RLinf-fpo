@@ -19,3 +19,16 @@ outputs/*
 uv.lock
 rlinf/envs/maniskill/assets
 PKG-INFO
+*.pth
+*.safetensors
+*.bin
+*.onnx
+wandb/
+__pycache__/
+.cache/
+build/
+dist/
+venv/
+.venv/ckpt/
+*.safetensors
+*.pt

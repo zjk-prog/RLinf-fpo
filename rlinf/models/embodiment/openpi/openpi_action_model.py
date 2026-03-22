@@ -36,7 +36,7 @@ from rlinf.utils.nested_dict_process import copy_dict_tensor
 @dataclass(frozen=True)
 class OpenPi0Config(Pi0Config):
     # config for rl
-    config_name: str = "pi0_libero"  # pi0_libero, pi05_libero, pi0_maniskill, pi05_maniskill, pi0_metaworld, pi05_metaworld
+    config_name: str = "pi05_gsenv"  # pi0_libero, pi05_libero, pi0_maniskill, pi05_maniskill, pi0_metaworld, pi05_metaworld
     num_images_in_input: int = 2  # number of images in input
     noise_method: str = "flow_sde"  # flow_sde, flow_noise, flow_cps
     # noise config for flow-sde
@@ -138,7 +138,10 @@ class OpenPi0ForRLActionPrediction(PI0Pytorch, BasePolicy):
 
         # rl model init
         if self.config.value_after_vlm:
-            proj_width = 2048
+                if self.config.pi05:
+                    proj_width = 1024
+                else:
+                    proj_width = 2048
         else:
             proj_width = 1024
         # value head

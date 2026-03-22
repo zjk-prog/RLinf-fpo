@@ -20,7 +20,8 @@ video_cfg:
 enable_offload: False
 
 init_params:
-  id: "GSEnv-PutCubeOnPlate-v0"
+  # id: "GSEnv-PutCubeOnPlate-v0"
+  id: "GSEnv-PutCubeOnPlate"
   num_envs: null # will be set in ManiSkillEnv init
   obs_mode: "state"
   control_mode: None
@@ -35,5 +36,5 @@ init_params:
   gs_kwargs:
     render_interface: "gs_rlinf"
     cache_table: True
-    render_bs: 4
+    render_bs: 2
   
